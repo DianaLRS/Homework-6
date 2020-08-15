@@ -1,6 +1,6 @@
 //Setting our variables for the API Key, City Input, and URL
 var APIKey = "631af5c78fdde025e0d500219377445c";
-var City = "Austin"
+var City = "Moscow"
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + City + "&appid=" + APIKey;
 
 //Temp from K to F
@@ -35,9 +35,10 @@ $.ajax({
 
         //Tranfering Data to HTML 
         $(".city-date").text(response.name + " " + humanDateFormat)
-        $("#temp").text("Temperature: " + Farenheit.toFixed(2));
-        $("#humidity").text("Humidity: " + response.main.humidity + "%")
-        $("#windspeed").text("Wind Speed: " + response.wind.speed + "MPH")
+        $("#temp").text("Temperature: " + Farenheit.toFixed(2) + " °F");
+        $("#humidity").text("Humidity: " + response.main.humidity + " %")
+        $("#windspeed").text("Wind Speed: " + response.wind.speed + " MPH")
+        $("#UV-index").text("UV Index: ")
 
         // adding attributes: 
         $(".icon").attr("src", " http://openweathermap.org/img/wn/" + iconID + ".png")
@@ -56,10 +57,32 @@ $.ajax({
             console.log(response);
 
             //adding UV index Text
+            var colorIndex = $("<p>")
+            colorIndex.addClass("data")
+            colorIndex.attr("id", "uv-index")
 
-            $("#UV-index").text("UV Index: " + "" + response.value)
+
+            $(colorIndex).text(response.value)
+            $("#current-city").append(colorIndex)
             console.log(response.value)
 
+            var uvValue = response.value
+                // CSS attributes to index value
+            if (uvValue < "3") {
+                colorIndex.attr("style", "background-color:green")
+            }
+            if (uvValue >= "3" && uvValue <= "5.99") {
+                colorIndex.attr("style", "background-color: gold")
+            }
+            if (uvValue >= "6" && uvValue <= "7.99") {
+                colorIndex.attr("style", "background-color: orange")
+            }
+            if (uvValue >= "8" && uvValue <= "10.99") {
+                colorIndex.attr("style", "background-color: red")
+            }
+            if (uvValue === "11" || uvValue > "11") {
+                colorIndex.attr("style", "background-color:Indigo")
+            }
         })
 
 

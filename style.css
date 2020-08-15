@@ -98,6 +98,7 @@ p {
     font-weight: 400;
     font-size: 20px;
     margin: 45px;
+    width: 200px;
 }
 
 #forecast {
@@ -109,6 +110,25 @@ p {
     margin-top: 50px;
     background-color: transparent;
     height: fit-content;
+}
+
+#UV-index {
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 0px;
+}
+
+#uv-index {
+    font-size: 27px;
+    font-weight: 500;
+    /* border: solid 1px black; */
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 20px;
+    height: 50px;
+    width: 100px;
+    margin-left: 50px;
+    color: white;
 }
 
 .card {
