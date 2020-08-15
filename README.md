@@ -24,3 +24,5 @@ The Search for City display:
 2. the button is eneabled by an event listener .on("click)
 3. the name of the city is saved and moved to the results-history area displayed under the searchbox 
 4. The user can click on the search result history tabs to display the current weather and 5-day forecast of the city. 
+
+The last searched city remains on display the next time Weather Dashboard is accessed. 
