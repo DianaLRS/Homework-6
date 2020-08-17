@@ -1,17 +1,17 @@
 //Setting our variables for the API Key, City Input, and URL
 var APIKey = "631af5c78fdde025e0d500219377445c";
-var City = "Moscow"
+var City = "moscow"
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + City + "&appid=" + APIKey;
 
-//Temp from K to F
 
-//Running the AJAX call to OpenWeather Map API
+
+//Calling the City
 
 $.ajax({
         url: queryURL,
         method: "GET"
     })
-    // We store all of the retrieved data inside of an object called "response"
+    // Store all of the retrieved data inside of an object called "response"
     .then(function(response) {
         console.log(queryURL);
         console.log(response);
@@ -41,7 +41,7 @@ $.ajax({
         $("#UV-index").text("UV Index: ")
 
         // adding attributes: 
-        $(".icon").attr("src", " http://openweathermap.org/img/wn/" + iconID + ".png")
+        $(".icon").attr("src", " https://openweathermap.org/img/wn/" + iconID + ".png")
 
         /* get the UV index and set the text)  nest ajax. use then function that says. pull weather report .then calculatethe UV index*/
         // lat and lon var 
@@ -49,9 +49,9 @@ $.ajax({
         var lon = response.coord.lon;
         console.log(lat)
         console.log(lon)
-            //set ajax
+            //set UV index ajax
         $.ajax({
-                url: "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon,
+                url: "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon,
                 method: "GET"
             }).then(function(response) {
                 console.log(response);
@@ -105,11 +105,11 @@ $.ajax({
                 cardforecast.addClass("card")
                 Headerforecast.addClass("forecast-date")
                 icon.addClass("forecast-icon")
-                tempforecast.addClass("forcast-data")
-                humidforecast.addClass("forecast-data")
+                tempforecast.addClass("forcast-temp")
+                humidforecast.addClass("forecast-humidity")
 
                 // adding attributes to our forecast elements
-                icon.attr("src", " http://openweathermap.org/img/wn/" + icon + ".png")
+                icon.attr("src", " https://openweathermap.org/img/wn/" + iconID + ".png")
 
                 //changing data to readable data
                 UnixTimestamp = (response.daily[i].dt)
@@ -120,12 +120,12 @@ $.ajax({
                 console.log(Farenheit)
                     //adding text to our forecast elements
                 Headerforecast.text(humanDateFormat)
-                tempforecast.text(Farenheit.toPrecision(4))
-                humidforecast.text(response.daily[i].humidity)
+                tempforecast.text("Temp: " + Farenheit.toPrecision(4) + " °F")
+                humidforecast.text("Humidity: " + response.daily[i].humidity + "%")
 
 
 
-                //apending our orecast elements
+                //apending our forecast elements
                 $(".five-day-forecast").append(cardforecast)
                 $(cardforecast).append(Headerforecast)
                 $(cardforecast).append(icon)
@@ -136,3 +136,14 @@ $.ajax({
 
 
     })
+
+// rendering buttons from search box and results history
+
+function renderSearch() {
+    $(".searchBtn").on("click", function() {
+        console.log("clicky")
+
+    })
+}
+
+renderSearch();

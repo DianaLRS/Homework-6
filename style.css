@@ -134,16 +134,39 @@ p {
 .card {
     height: 300px;
     width: 250px;
-    background-color: mediumblue;
+    background-color: rgb(43, 99, 253);
     color: white;
     border: solid black 1px;
     float: left;
     margin-top: 15px;
-    margin: 10px;
+    margin: 50px;
+}
+
+.forecast-date {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.forecast-icon {
+    margin-left: 80px;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    height: 40px;
+}
+
+.forecast-temp {
+    font-weight: 400px;
+}
+
+.forecast-humidity {
+    padding-top: 20px;
 }
 
 .five-Day {
     font-weight: 500;
     font-size: 35px;
-    margin-top: 20px
+    margin-top: 20px;
+    border-bottom: solid rgb(170, 165, 165) 1px;
 }
