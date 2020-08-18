@@ -1,12 +1,13 @@
 //Setting our variables for the API Key, City Input, and URL
 var APIKey = "631af5c78fdde025e0d500219377445c";
-var City = ["moscow"];
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + City + "&appid=" + APIKey;
+var cities = []
+console.log(cities)
 
 
-
-//Calling the City
 function displayWeatherData() {
+    var city = $("#search-bar").val().trim();
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + "&appid=" + APIKey;
+
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -31,9 +32,13 @@ function displayWeatherData() {
 
             iconID = response.weather[0].icon
 
+            // setting city data 
+
+
+
 
             //Tranfering Data to HTML 
-            $(".city-date").text(response.name + " " + humanDateFormat)
+            $(".city-date").text(City + " " + humanDateFormat)
             $("#temp").text("Temperature: " + Farenheit.toFixed(2) + " °F");
             $("#humidity").text("Humidity: " + response.main.humidity + " %")
             $("#windspeed").text("Wind Speed: " + response.wind.speed + " MPH")
@@ -137,25 +142,60 @@ function displayWeatherData() {
         })
 }
 
-// rendering buttons from search box and results history
+function renderSearchButton() {
 
-function renderSearch() {
     $(".searchBtn").on("click", function() {
         event.preventDefault();
-        // adding results section
-        var result = $("<p>")
-        result.addClass("results")
+        displayWeatherData();
+        City = $("#search-bar").val().trim();
 
 
-        // adding p element to results sections
 
-        //appending elements
+        var results = $("<p>");
+        results.addClass("results");
+        results.attr("data-name");
+        results.text(City);
+        $(".form").append(results);
 
-        $(".form").append(result)
-        console.log("clicky")
+
+
+
+        console.log(City)
+
+        cities.push(City)
+
+        if (localStorage.getItem("allCities")) {
+            var citiesString = [...cities, ...JSON.parse(localStorage.getItem("allCities"))]
+            var noDuplicates = citiesString.filter((item, index) => citiesString.indexOf(item) === index);
+            noDuplicates = JSON.stringify(noDuplicates);
+            localStorage.setItem("allCities", noDuplicates)
+        } else {
+            var citiesString = JSON.stringify(cities)
+            localStorage.setItem("allCities", citiesString)
+        }
+
+        console.log("click")
+        console.log(cities)
 
     })
+
 }
 
-renderSearch();
-displayWeatherData();
+function renderCitiesLocalStorage() {
+    var citiesArray = JSON.parse(localStorage.getItem("allCities"))
+
+    for (var i = 0; i < citiesArray.length; i++) {
+        var results = $("<p>");
+        results.addClass("results");
+        results.attr("data-name");
+        results.text(citiesArray[i]);
+        $(".form").append(results);
+    }
+}
+
+
+if (localStorage.getItem("allCities")) {
+    renderCitiesLocalStorage();
+}
+
+renderSearchButton();
