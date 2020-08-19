@@ -4,8 +4,8 @@ var cities = []
 console.log(cities)
 
 
-function displayWeatherData() {
-    var city = $("#search-bar").val().trim();
+function displayWeatherData(city) {
+
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + "&appid=" + APIKey;
 
     $.ajax({
@@ -32,13 +32,8 @@ function displayWeatherData() {
 
             iconID = response.weather[0].icon
 
-            // setting city data 
-
-
-
-
             //Tranfering Data to HTML 
-            $(".city-date").text(City + " " + humanDateFormat)
+            $(".city-date").text(city + " " + humanDateFormat)
             $("#temp").text("Temperature: " + Farenheit.toFixed(2) + " °F");
             $("#humidity").text("Humidity: " + response.main.humidity + " %")
             $("#windspeed").text("Wind Speed: " + response.wind.speed + " MPH")
@@ -146,16 +141,17 @@ function renderSearchButton() {
 
     $(".searchBtn").on("click", function() {
         event.preventDefault();
-        displayWeatherData();
-        City = $("#search-bar").val().trim();
 
+        City = $("#search-bar").val().trim();
+        displayWeatherData(City);
 
 
         var results = $("<p>");
         results.addClass("results");
         results.attr("data-name");
-        results.text(City);
+        results.text(City)
         $(".form").append(results);
+
 
 
 
@@ -185,17 +181,32 @@ function renderCitiesLocalStorage() {
     var citiesArray = JSON.parse(localStorage.getItem("allCities"))
 
     for (var i = 0; i < citiesArray.length; i++) {
+
         var results = $("<p>");
         results.addClass("results");
-        results.attr("data-name");
+        results.attr("data-name", citiesArray[i]);
         results.text(citiesArray[i]);
         $(".form").append(results);
+        results.on("click", function() {
+            event.preventDefault();
+            displayWeatherData($(this).attr("data-name")); // using this inside an onclick $(this) = button being clicked 
+
+        })
     }
+
+
 }
 
 
 if (localStorage.getItem("allCities")) {
     renderCitiesLocalStorage();
+
 }
+
+
+
+
+
+
 
 renderSearchButton();
