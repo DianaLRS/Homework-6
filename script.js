@@ -142,21 +142,21 @@ function renderSearchButton() {
     $(".searchBtn").on("click", function() {
         event.preventDefault();
 
-        City = $("#search-bar").val().trim();
-        displayWeatherData(City);
+        city = $("#search-bar").val().trim();
+        displayWeatherData(city);
 
 
         var results = $("<p>");
         results.addClass("results");
         results.attr("data-name");
-        results.text(City)
+        results.text(city)
         $(".form").append(results);
 
 
 
 
 
-        console.log(City)
+        console.log(city)
 
         cities.push(City)
 
