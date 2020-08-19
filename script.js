@@ -170,7 +170,7 @@ function renderSearchButton() {
             localStorage.setItem("allCities", citiesString)
         }
 
-        console.log("click")
+
         console.log(cities)
 
     })
@@ -190,7 +190,6 @@ function renderCitiesLocalStorage() {
         results.on("click", function() {
             event.preventDefault();
             displayWeatherData($(this).attr("data-name")); // using this inside an onclick $(this) = button being clicked 
-
         })
     }
 
