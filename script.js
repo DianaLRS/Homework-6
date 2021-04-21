@@ -37,7 +37,7 @@ function displayWeatherData(city) {
             $("#temp").text("Temperature: " + Farenheit.toFixed(2) + " °F");
             $("#humidity").text("Humidity: " + response.main.humidity + " %")
             $("#windspeed").text("Wind Speed: " + response.wind.speed + " MPH")
-            $("#UV-index").text("UV Index: ")
+            $("#UV-index").text("UV-Index: ")
 
             // adding attributes: 
             $(".icon").attr("src", " https://openweathermap.org/img/wn/" + iconID + ".png")
